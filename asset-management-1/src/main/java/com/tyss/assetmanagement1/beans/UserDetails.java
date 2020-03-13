@@ -20,9 +20,6 @@ public class UserDetails {
 
 	public UserDetails() {
 		
-		// Take input from console and use setters/getter to initialize
-		
-		
 	}
 	
 	public boolean checkLogin(String userName, String password) {

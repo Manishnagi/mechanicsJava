@@ -4,16 +4,17 @@ import java.util.Scanner;
 
 import com.tyss.assetmanagement1.beans.UserDetails;
 import com.tyss.assetmanagement1.service.Service;
-import com.tyss.assetmanagement1.service.ServiceImpl;
+import com.tyss.assetmanagement1.util.factory.Factory;
 
 public class MainController {
 
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
-		Service service = new ServiceImpl();
-
-		do {	
+		Service service = Factory.getService();
+		
+		do {
+			try {
 				// To get user name and password for login
 				System.out.println("Enter your login details");
 				System.out.print("Enter your User Name: ");
@@ -35,6 +36,7 @@ public class MainController {
 						break;
 					case "Employee":
 //						EmployeeController.controller(user, service, scanner);
+						System.out.println("Employee cannot login");
 						break;
 					default:
 						System.out.println("This will be avoided always...");
@@ -42,7 +44,9 @@ public class MainController {
 				} else {
 					System.out.println("Enter a valid username and correct password");
 				}
-
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
 			System.out.print("\n\nLogging out...\nEnter 'y' to login again: ");
 
 		} while (scanner.nextLine().equalsIgnoreCase("y"));

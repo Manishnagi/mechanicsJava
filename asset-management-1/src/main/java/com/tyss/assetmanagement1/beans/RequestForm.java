@@ -10,21 +10,36 @@ public class RequestForm {
 	private Integer employeeID;
 	private Integer quantity;
 	private String additionalNotes;
+	private Integer managerID;
+	private boolean alloted;
 
 	public RequestForm() {
 
 	}
 
-	public RequestForm(Integer employeeID, Integer assetID, Integer quantity, String additionalNotes) {
-		this.requestID = count++;
-		this.assetID = assetID;
+	public RequestForm(Integer employeeID, Integer managerID, Integer assetID, Integer quantity, String additionalNotes) {
+		alloted = false;
+		requestID = count++;
 		this.employeeID = employeeID;
+		this.managerID = managerID;
+		this.assetID = assetID;
 		this.quantity = quantity;
 		this.additionalNotes = additionalNotes;
 	}
+	
+	
+	public static Integer getCount() {
+		return count;
+	}
 
-	
-	
+	public boolean isAlloted() {
+		return alloted;
+	}
+
+	public void allot() {
+		alloted = true;
+	}
+
 	public Integer getRequestID() {
 		return requestID;
 	}
@@ -49,6 +64,14 @@ public class RequestForm {
 		this.employeeID = employeeID;
 	}
 
+	public Integer getManagerID() {
+		return managerID;
+	}
+
+	public void setManagerID(Integer managerID) {
+		this.managerID = managerID;
+	}
+
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -67,8 +90,8 @@ public class RequestForm {
 
 	@Override
 	public String toString() {
-		return "RequestForm [requestID=" + requestID + ", assetID=" + assetID + ", employeeID=" + employeeID
-				+ ", quantity=" + quantity + ", \nadditionalNotes-->\n" + additionalNotes + "]";
+		return "RequestForm [Alloted?=" + alloted +", requestID=" + requestID + ", assetID=" + assetID + ", employeeID=" + employeeID
+				+ ", quantity=" + quantity + ", \nadditionalNotes-->" + additionalNotes + "]\n";
 	}
 	
 	

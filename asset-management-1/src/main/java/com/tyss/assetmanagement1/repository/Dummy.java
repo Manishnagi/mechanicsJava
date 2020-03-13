@@ -1,10 +1,15 @@
 package com.tyss.assetmanagement1.repository;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tyss.assetmanagement1.beans.Assets;
 import com.tyss.assetmanagement1.beans.UserDetails;
+import com.tyss.assetmanagement1.service.Service;
+import com.tyss.assetmanagement1.util.exceptions.AssetNotFoundException;
+import com.tyss.assetmanagement1.util.exceptions.QuantityNotAvailableException;
+import com.tyss.assetmanagement1.util.exceptions.RequestNotFoundException;
 
 public class Dummy {
 
@@ -13,7 +18,6 @@ public class Dummy {
 		List<UserDetails> users = new ArrayList<>();
 
 		users.add(new UserDetails("A", "qwerty", "Admin", "TY8506"));
-		users.add(new UserDetails("B", "qwerty", "Admin", "TY8507"));
 		users.add(new UserDetails("C", "qwerty", "Manager", "TY8508"));
 		users.add(new UserDetails("D", "qwerty", "Manager", "TY8509"));
 		users.add(new UserDetails("E", "qwerty", "Manager", "TY8510"));
@@ -27,7 +31,7 @@ public class Dummy {
 		return users;
 
 	}
-
+	
 	public static List<Assets> dummyAssets() {
 
 		List<Assets> assets = new ArrayList<>();
@@ -46,28 +50,40 @@ public class Dummy {
 
 	}
 	
-	public static void allot(List<Assets> assets) {
+
+
+	public static void approve(Service service) {
 		
-		assets.get(0).allotManager(2, 195);
-		assets.get(0).allotManager(3, 280);
-		assets.get(0).allotEmployee(4, 10);
-		assets.get(1).allotManager(2, 40);
-		assets.get(1).allotEmployee(5, 20);
-		assets.get(1).allotEmployee(8, 58);
-		assets.get(2).allotManager(3, 18);
-		assets.get(2).allotEmployee(6, 8);
-		assets.get(3).allotManager(2, 30);
-		assets.get(3).allotEmployee(9, 5);
-		assets.get(4).allotManager(2, 5);
-		assets.get(5).allotManager(3, 80);
-		assets.get(6).allotEmployee(4, 10);
-		assets.get(6).allotEmployee(10, 60);
-		assets.get(7).allotManager(2, 68);
-		assets.get(8).allotManager(3, 80);
-		assets.get(8).allotEmployee(7, 152);
+		try {
+			service.allot(1);
+			service.allot(2);
+			service.allot(3);
+			service.allot(5);
+			service.allot(6);
+		} catch (QuantityNotAvailableException e) {
+			e.printStackTrace();
+		} catch (RequestNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		
-	}	
+		
+	}
+	
+	public static void request(Service service) {
+		
+		try {
+		service.addRequest(6,1, 1, 780, "High Prioirty");
+		service.addRequest(8,1, 2, 78, "High Priority");
+		service.addRequest(5,2, 3, 25, "High Priority");
+		service.addRequest(5,3, 4, 35, "High Priority" );
+		service.addRequest(8, 1, 5, 12, "High Priority");
+		service.addRequest(5, 2, 6, 90, "High Priority");
+		service.addRequest(7, 3, 7, 120, "High Priority");
+		} catch (AssetNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

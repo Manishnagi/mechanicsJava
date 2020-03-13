@@ -36,6 +36,14 @@ public class Assets {
 		// default constructor
 	}
 	
+	public Map<Integer, Integer> getManagers() {
+		return managerAccessors;
+	}
+	
+	public Map<Integer, Integer> getEmployees() {
+		return employeeAccessors;
+	}
+	
 	public Integer getAssetID() {
 		return assetID;
 	}
@@ -86,21 +94,13 @@ public class Assets {
 	}
 
 	public void allotManager(Integer managerID, Integer quantity) {
-		if (assetQuantity >= allotedM + quantity) {
 			managerAccessors.put(managerID, quantity);
 			allotedM += quantity;
-		} else {
-			System.out.println("Not enough assets to allot " + quantity);
-		}
 	}
 
 	public void allotEmployee(Integer employeeID, Integer quantity) {
-		if (assetQuantity >= allotedE + quantity) {
 			employeeAccessors.put(employeeID, quantity);
 			allotedE += quantity;
-		} else {
-			System.out.println("Not enough assets to allot " + quantity);
-		}
 	}
 
 	public Integer getManagerNos(Integer managerID) {
