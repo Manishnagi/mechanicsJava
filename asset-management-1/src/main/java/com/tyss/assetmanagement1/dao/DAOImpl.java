@@ -1,5 +1,6 @@
 package com.tyss.assetmanagement1.dao;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.tyss.assetmanagement1.beans.Assets;
@@ -21,17 +22,17 @@ public class DAOImpl implements DAO {
 
 	@Override
 	public List<UserDetails> users() {
-		return database.users();
+		return new LinkedList<>(database.users());
 	}
 
 	@Override
 	public List<Assets> assets() {
-		return database.assets();
+		return new LinkedList<>(database.assets());
 	}
 
 	@Override
 	public List<RequestForm> requests() {
-		return database.requests();
+		return new LinkedList<>(database.requests());
 	}
 
 	@Override
@@ -89,18 +90,29 @@ public class DAOImpl implements DAO {
 	
 
 	@Override
-	public boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException {
-		RequestForm requestForm = getRequest(requestID);
+	public boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException {
+		RequestForm requestForm = null;
+		for (RequestForm request : database.requests()) {
+			if (request.getRequestID().equals(requestID)) {
+				requestForm = request;
+			}
+		}
 		if(requestForm == null)
 			throw new RequestNotFoundException();
 		if (!requestForm.isAlloted()) {
-			Assets assets = getAsset(requestForm.getAssetID());
+			Assets asset = null;
+			for (Assets assets2 : database.assets()) {
+				if (assets2.getAssetID().equals(requestForm.getAssetID()))
+					asset = assets2;
+			}
+			if(asset == null)
+				throw new AssetNotFoundException();
 			Integer quantity = requestForm.getQuantity();
-			Integer allotedQuantity = assets.getAllotedM();
-			Integer totalQuantity = assets.getAssetQuantity();
+			Integer allotedQuantity = asset.getAllotedM();
+			Integer totalQuantity = asset.getAssetQuantity();
 			if (totalQuantity >= quantity + allotedQuantity) {
-				assets.allotEmployee(requestForm.getEmployeeID(), quantity);
-				assets.allotManager(requestForm.getManagerID(), quantity);
+				asset.allotEmployee(requestForm.getEmployeeID(), quantity);
+				asset.allotManager(requestForm.getManagerID(), quantity);
 				requestForm.allot();
 				return true;
 			}
@@ -113,18 +125,22 @@ public class DAOImpl implements DAO {
 	
 	@Override
 	public void addUser(UserDetails userDetails) {
-		users().add(userDetails);
+		database.users().add(userDetails);
 	}
 
 	@Override
 	public void addAsset(Assets asset) {
-		assets().add(asset);
+		database.assets().add(asset);
 
 	}
 	
 	@Override
 	public void updateAsset(Integer assetID, Integer quantity) throws AssetNotFoundException {
-		Assets asset = getAsset(assetID);
+		Assets asset = null;
+		for (Assets assets2 : database.assets()) {
+			if (assets2.getAssetID().equals(assetID))
+				asset = assets2;
+		}
 		if (asset == null)
 			throw new AssetNotFoundException();
 		asset.setAssetQuantity(asset.getAssetQuantity() + quantity);		
@@ -132,8 +148,7 @@ public class DAOImpl implements DAO {
 
 	@Override
 	public void addRequest(RequestForm requestForm) {
-		requests().add(requestForm);
-
+		database.requests().add(requestForm);
 	}
 
 	

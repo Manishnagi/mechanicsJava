@@ -64,6 +64,8 @@ public class Dummy {
 			e.printStackTrace();
 		} catch (RequestNotFoundException e) {
 			e.printStackTrace();
+		} catch (AssetNotFoundException e) {
+			e.printStackTrace();
 		}
 		
 		

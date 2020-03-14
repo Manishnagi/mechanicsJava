@@ -7,6 +7,7 @@ import com.tyss.assetmanagement1.beans.RequestForm;
 import com.tyss.assetmanagement1.beans.UserDetails;
 import com.tyss.assetmanagement1.service.Service;
 import com.tyss.assetmanagement1.util.exceptions.AssetNotFoundException;
+import com.tyss.assetmanagement1.util.exceptions.InvalidPasswordException;
 import com.tyss.assetmanagement1.util.exceptions.QuantityNotAvailableException;
 import com.tyss.assetmanagement1.util.exceptions.RequestNotFoundException;
 
@@ -16,11 +17,13 @@ public class AdminController {
 
 		System.out.println();
 		System.out.println(user);
+		Boolean loggedIn = true;
 			do {
 			try {
 			System.out.println(
 					"Enter\n1 to display all assets\n2 to view pending requests\n3 to view an asset's details completely"
-							+ "\n4 to create a new user\n5 to add/update an asset\n6 to view approved requests");
+							+ "\n4 to create a new user\n5 to add/update an asset\n6 to view approved requests"
+							+ "\n7 to change password\nL to LOGOUT");
 
 			switch (scanner.nextLine()) {
 			case "1":
@@ -43,6 +46,9 @@ public class AdminController {
 				} catch (NumberFormatException | QuantityNotAvailableException e) {
 					System.out.println(e.getMessage());
 				} catch (RequestNotFoundException e) {
+					System.out.println(e.getMessage());
+				} catch (AssetNotFoundException e) {
+					// TODO Auto-generated catch block
 					System.out.println(e.getMessage());
 				}
 				break;
@@ -85,19 +91,34 @@ public class AdminController {
 						e.printStackTrace();
 					}
 				}
+				break;
 			case "6":
 				for (RequestForm requestForm : service.getRequests()) {
 					if (requestForm.isAlloted())
 						System.out.println(requestForm);
 				}
+				break;
+			case "7":
+//				System.out.println("Enter your password again: ");
+//				String password = scanner.nextLine();
+//				try {
+//					service.changePassword(user, password);
+//				} catch (InvalidPasswordException e) {
+//					e.printStackTrace();
+//				}
+				System.out.println("Feature coming soon");
+			case "L":
+			case "l":
+				System.out.println("\nLogging Out..");
+				loggedIn = false;
+				break;
 			default:
 				System.out.println("Please enter a valid option");
 			}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
-			System.out.print("\nEnter 'y' to continue: ");
-		} while (scanner.nextLine().equalsIgnoreCase("y"));
+		} while (loggedIn);
 
 	}
 

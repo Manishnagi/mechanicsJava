@@ -94,7 +94,7 @@ public class ServiceImpl implements Service {
 	
 	
 	@Override
-	public boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException {
+	public boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException {
 		return dao.allot(requestID);
 	}
 	

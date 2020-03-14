@@ -23,7 +23,7 @@ public interface DAO {
 	void addRequest(RequestForm requestForm);
 	Integer checkEmployee(Integer empID);
 	boolean checkAsset(Integer assetID);
-	boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException;
+	boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException;
 
 }
 

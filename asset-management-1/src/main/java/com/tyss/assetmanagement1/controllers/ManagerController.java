@@ -13,21 +13,21 @@ public class ManagerController {
 	public static void controller(UserDetails user, Service service, Scanner scanner) {
 		System.out.println();
 		System.out.println(user);
+		boolean loggedIn = true;
 		do {
 			
 			try {
 			System.out.println("Enter\n1 to see employee details\n2 to display available assets"
 					+ "\n3 to raise a new request\n4 to view requests status\n5 to add a new user"
-					+ "\n6 to report destroyed assets");
+					+ "\n6 to report destroyed assets\n7 to change password\nL to logout");
 
-			switch (scanner.nextLine()) {
+			switch (scanner.nextLine().strip()) {
 			case "1":
 				for (UserDetails userDetails : service.getUsers()) {
 					if (userDetails.getUserType().equalsIgnoreCase("Employee"))
 						System.out.println("ID=" + userDetails.getUserID() + " | Name=" 
 								+ userDetails.getUserName());
 				}
-
 				break;
 			case "2":
 				for (Assets assets2 : service.getAssets()) {
@@ -106,8 +106,12 @@ public class ManagerController {
 				} else {
 					System.out.println("Requests cannot be made for managers/admin");
 				}
-				
-				System.out.println("Feature coming soon");
+				break;
+			case "L":
+			case "l":
+				System.out.println("\nLogging Out..");
+				loggedIn = false;
+				break;
 			default:
 				System.out.println("Please enter a valid option");
 			}
@@ -115,8 +119,7 @@ public class ManagerController {
 				e.printStackTrace();
 			}
 			
-			System.out.print("\nEnter 'y' to continue: ");
-		} while (scanner.nextLine().equalsIgnoreCase("y"));
+		} while (loggedIn);
 
 	}
 

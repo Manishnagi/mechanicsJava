@@ -23,5 +23,5 @@ public interface Service {
 	boolean checkAsset(Integer assetID);
 	Integer addRequest(Integer empID, Integer managerID, Integer assetID, Integer quantity
 			, String addNotes) throws AssetNotFoundException ;
-	boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException;
+	boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException;
 }

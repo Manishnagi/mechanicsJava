@@ -15,13 +15,14 @@ public class MainController {
 		
 		do {
 			try {
+				
 				// To get user name and password for login
 				System.out.println("Enter your login details");
 				System.out.print("Enter your User Name: ");
-				String userName = scanner.nextLine();
+				String userName = scanner.nextLine().strip();
 				System.out.print("Enter your password: ");
 				String password = scanner.nextLine();
-
+				
 				// searching for the user
 				UserDetails user = service.getUser(userName, password);
 
@@ -35,7 +36,6 @@ public class MainController {
 						ManagerController.controller(user, service, scanner);
 						break;
 					case "Employee":
-//						EmployeeController.controller(user, service, scanner);
 						System.out.println("Employee cannot login");
 						break;
 					default:
@@ -47,9 +47,9 @@ public class MainController {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
-			System.out.print("\n\nLogging out...\nEnter 'y' to login again: ");
+			System.out.print("\n\nEnter 'y' to login again: ");
 
-		} while (scanner.nextLine().equalsIgnoreCase("y"));
+		} while (scanner.nextLine().strip().equalsIgnoreCase("y"));
 
 		scanner.close();
 	}
