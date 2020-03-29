@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tyss.assetmanagement1.beans.Assets;
+import com.tyss.assetmanagement1.beans.RequestForm;
 import com.tyss.assetmanagement1.beans.UserDetails;
-import com.tyss.assetmanagement1.service.Service;
-import com.tyss.assetmanagement1.util.exceptions.AssetNotFoundException;
-import com.tyss.assetmanagement1.util.exceptions.QuantityNotAvailableException;
-import com.tyss.assetmanagement1.util.exceptions.RequestNotFoundException;
+import com.tyss.assetmanagement1.util.PasswordEncoder;
 
 public class Dummy {
 
@@ -17,16 +15,16 @@ public class Dummy {
 
 		List<UserDetails> users = new ArrayList<>();
 
-		users.add(new UserDetails("A", "qwerty", "Admin", "TY8506"));
-		users.add(new UserDetails("C", "qwerty", "Manager", "TY8508"));
-		users.add(new UserDetails("D", "qwerty", "Manager", "TY8509"));
-		users.add(new UserDetails("E", "qwerty", "Manager", "TY8510"));
-		users.add(new UserDetails("F", "qwerty", "Employee", "TY8516"));
-		users.add(new UserDetails("G", "qwerty", "Employee", "TY8526"));
-		users.add(new UserDetails("H", "qwerty", "Employee", "TY8536"));
-		users.add(new UserDetails("I", "qwerty", "Employee", "TY8546"));
-		users.add(new UserDetails("J", "qwerty", "Employee", "TY8556"));
-		users.add(new UserDetails("K", "qwerty", "Employee", "TY8566"));
+		users.add(new UserDetails("A", PasswordEncoder.encodedPassword("qwerty"), "Admin", "TY8506"));
+		users.add(new UserDetails("C", PasswordEncoder.encodedPassword("qwerty"), "Manager", "TY8508"));
+		users.add(new UserDetails("D", PasswordEncoder.encodedPassword("qwerty"), "Manager", "TY8509"));
+		users.add(new UserDetails("E", PasswordEncoder.encodedPassword("qwerty"), "Manager", "TY8510"));
+		users.add(new UserDetails("F", PasswordEncoder.encodedPassword("qwerty"), "Employee", "TY8516"));
+		users.add(new UserDetails("G", PasswordEncoder.encodedPassword("qwerty"), "Employee", "TY8526"));
+		users.add(new UserDetails("H", PasswordEncoder.encodedPassword("qwerty"), "Employee", "TY8536"));
+		users.add(new UserDetails("I", PasswordEncoder.encodedPassword("qwerty"), "Employee", "TY8546"));
+		users.add(new UserDetails("J", PasswordEncoder.encodedPassword("qwerty"), "Employee", "TY8556"));
+		users.add(new UserDetails("K", PasswordEncoder.encodedPassword("qwerty"), "Employee", "TY8566"));
 
 		return users;
 
@@ -50,55 +48,20 @@ public class Dummy {
 
 	}
 	
+	
+	public static List<RequestForm> dummyRequests() {		
+		
+		List<RequestForm> requests = new ArrayList<RequestForm>();
+		
+		requests.add(new RequestForm(6,1, 1, 680, "High Prioirty"));
+		requests.add(new RequestForm(8,1, 2, 28, "High Priority"));
+		requests.add(new RequestForm(5,2, 3, 35, "High Priority"));
+		requests.add(new RequestForm(5,3, 4, 5, "High Priority"));
+		requests.add(new RequestForm(8, 1, 5, 2, "High Priority"));
+		requests.add(new RequestForm(5, 2, 6, 29, "High Priority"));
+		requests.add(new RequestForm(7, 3, 7, 120, "High Priority"));
 
-
-	public static void approve(Service service) {
-		
-		try {
-			service.allot(1);
-			service.allot(2);
-			service.allot(3);
-			service.allot(5);
-			service.allot(6);
-		} catch (QuantityNotAvailableException e) {
-			e.printStackTrace();
-		} catch (RequestNotFoundException e) {
-			e.printStackTrace();
-		} catch (AssetNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
+		return requests;
 	}
-	
-	public static void request(Service service) {
-		
-		try {
-		service.addRequest(6,1, 1, 780, "High Prioirty");
-		service.addRequest(8,1, 2, 78, "High Priority");
-		service.addRequest(5,2, 3, 25, "High Priority");
-		service.addRequest(5,3, 4, 35, "High Priority" );
-		service.addRequest(8, 1, 5, 12, "High Priority");
-		service.addRequest(5, 2, 6, 90, "High Priority");
-		service.addRequest(7, 3, 7, 120, "High Priority");
-		} catch (AssetNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

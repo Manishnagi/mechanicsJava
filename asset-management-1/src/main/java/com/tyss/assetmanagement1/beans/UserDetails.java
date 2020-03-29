@@ -1,5 +1,15 @@
 package com.tyss.assetmanagement1.beans;
 
+/**
+ * To store all related data of a user as an object 
+ * 
+ * The Administrator credentials are provided by the software provider 
+ * who can then intern add Users to the system 
+ * No sign up option since only paid customers can login and use the software 
+ * 
+ * @author C J Rohan
+ *
+ */
 public class UserDetails {
 	
 	private String userName;
@@ -19,12 +29,6 @@ public class UserDetails {
 	}
 
 	public UserDetails() {
-		
-	}
-	
-	public boolean checkLogin(String userName, String password) {
-		
-		return this.userName.equalsIgnoreCase(userName) && this.password.equals(password);
 		
 	}
 

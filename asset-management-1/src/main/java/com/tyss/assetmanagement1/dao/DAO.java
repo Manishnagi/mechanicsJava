@@ -14,7 +14,6 @@ public interface DAO {
 	List<UserDetails> users();
 	List<Assets> assets();
 	List<RequestForm> requests();
-	UserDetails getUser(String userName, String password);
 	Assets getAsset(Integer assetID);
 	RequestForm getRequest(Integer requestID);
 	void addUser(UserDetails userDetails);
@@ -24,6 +23,7 @@ public interface DAO {
 	Integer checkEmployee(Integer empID);
 	boolean checkAsset(Integer assetID);
 	boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException;
+	void changePassword(Integer userID, String password);
 
 }
 

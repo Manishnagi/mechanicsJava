@@ -3,6 +3,12 @@ package com.tyss.assetmanagement1.beans;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * To store all related data of an asset in an asset object 
+ * 
+ * @author C J Rohan
+ *
+ */
 public class Assets {
 
 	private static Integer count = 1;

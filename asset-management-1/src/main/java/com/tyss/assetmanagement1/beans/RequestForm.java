@@ -1,6 +1,11 @@
 package com.tyss.assetmanagement1.beans;
 
-@SuppressWarnings("unused")
+/**
+ * To store all related data of a Request Form as an object 
+ * 
+ * @author C J Rohan
+ *
+ */
 public class RequestForm {
 
 	private static Integer count = 1;
@@ -90,8 +95,8 @@ public class RequestForm {
 
 	@Override
 	public String toString() {
-		return "RequestForm [Alloted?=" + alloted +", requestID=" + requestID + ", assetID=" + assetID + ", employeeID=" + employeeID
-				+ ", quantity=" + quantity + ", \nadditionalNotes-->" + additionalNotes + "]\n";
+		return requestID + "    --> From user ID=" + managerID + " to employee ID=" + employeeID
+				+ ", for asset ID=" + assetID + " and quantity=" + quantity + ", \nadditionalNotes-->" + additionalNotes + "\n";
 	}
 	
 	

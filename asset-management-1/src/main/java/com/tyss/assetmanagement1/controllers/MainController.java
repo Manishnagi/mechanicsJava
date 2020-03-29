@@ -2,25 +2,44 @@ package com.tyss.assetmanagement1.controllers;
 
 import java.util.Scanner;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+
 import com.tyss.assetmanagement1.beans.UserDetails;
 import com.tyss.assetmanagement1.service.Service;
+import com.tyss.assetmanagement1.util.exceptions.InvalidPasswordException;
 import com.tyss.assetmanagement1.util.factory.Factory;
 
+
+/**
+ * The main controller which redirects to 
+ * either admin controller or user controller 
+ * according to the type of user who has logged in
+ * 
+ * @author C J Rohan
+ *
+ */
 public class MainController {
+
+	private MainController() {
+		
+	}
 
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
 		Service service = Factory.getService();
 		
+		Logger logger = Logger.getLogger(MainController.class);
+		BasicConfigurator.configure();
 		do {
+			
 			try {
-				
 				// To get user name and password for login
-				System.out.println("Enter your login details");
-				System.out.print("Enter your User Name: ");
+				logger.info("\nEnter your login details");
+				logger.info("\nEnter your User Name: ");
 				String userName = scanner.nextLine().strip();
-				System.out.print("Enter your password: ");
+				logger.info("\nEnter your password: ");
 				String password = scanner.nextLine();
 				
 				// searching for the user
@@ -36,18 +55,20 @@ public class MainController {
 						ManagerController.controller(user, service, scanner);
 						break;
 					case "Employee":
-						System.out.println("Employee cannot login");
+						logger.info("\nLogin not available for employee.......");
 						break;
 					default:
-						System.out.println("This will be avoided always...");
+						logger.info("\nThis will be avoided always...");
 					}
 				} else {
-					System.out.println("Enter a valid username and correct password");
+					logger.info("\nEnter a valid username and correct password");
 				}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
+			} catch (InvalidPasswordException e) {
+				e.printStackTrace();
 			}
-			System.out.print("\n\nEnter 'y' to login again: ");
+			logger.info("\nEnter 'y' to login again: ");
 
 		} while (scanner.nextLine().strip().equalsIgnoreCase("y"));
 

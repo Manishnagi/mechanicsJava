@@ -36,16 +36,6 @@ public class DAOImpl implements DAO {
 	}
 
 	@Override
-	public UserDetails getUser(String userName, String password) {
-		for (UserDetails userDetails : users()) {
-			if (userDetails.checkLogin(userName, password)) {
-				return userDetails;
-			}
-		}
-		return null;
-	}
-
-	@Override
 	public Assets getAsset(Integer assetID) {
 		for (Assets assets2 : assets()) {
 			if (assets2.getAssetID().equals(assetID))
@@ -84,10 +74,7 @@ public class DAOImpl implements DAO {
 				return true;
 		}
 		return false;
-	}
-	
-	
-	
+	}	
 
 	@Override
 	public boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException {
@@ -111,6 +98,8 @@ public class DAOImpl implements DAO {
 			Integer allotedQuantity = asset.getAllotedM();
 			Integer totalQuantity = asset.getAssetQuantity();
 			if (totalQuantity >= quantity + allotedQuantity) {
+				if(quantity < 0)
+					asset.setAssetQuantity(asset.getAssetQuantity() + quantity);
 				asset.allotEmployee(requestForm.getEmployeeID(), quantity);
 				asset.allotManager(requestForm.getManagerID(), quantity);
 				requestForm.allot();
@@ -120,8 +109,6 @@ public class DAOImpl implements DAO {
 		}
 		return false;
 	}
-
-	
 	
 	@Override
 	public void addUser(UserDetails userDetails) {
@@ -151,6 +138,14 @@ public class DAOImpl implements DAO {
 		database.requests().add(requestForm);
 	}
 
-	
+	@Override
+	public void changePassword(Integer userID, String password) {
+		for (UserDetails user : database.users()) {
+			if (userID.equals(user.getUserID())) {
+				user.setPassword(password);
+				break;
+			}
+		}		
+	}
 
 }

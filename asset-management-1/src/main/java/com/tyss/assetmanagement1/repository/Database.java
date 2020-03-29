@@ -1,6 +1,5 @@
 package com.tyss.assetmanagement1.repository;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.tyss.assetmanagement1.beans.Assets;
@@ -16,7 +15,10 @@ public class Database {
 	static {
 		USERS = Dummy.dummyUsers();
 		ASSETS = Dummy.dummyAssets();
-		REQUESTS = new LinkedList<RequestForm>();
+		REQUESTS = Dummy.dummyRequests();
+//		for (UserDetails user : USERS) {
+//			System.out.println(user + "--> " + user.getPassword());
+//		}
 	}
 	
 	public List<UserDetails> users() {
