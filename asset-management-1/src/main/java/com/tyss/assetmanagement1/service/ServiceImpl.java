@@ -13,6 +13,7 @@ import com.tyss.assetmanagement1.util.exceptions.InvalidPasswordException;
 import com.tyss.assetmanagement1.util.exceptions.InvalidUsernameException;
 import com.tyss.assetmanagement1.util.exceptions.QuantityNotAvailableException;
 import com.tyss.assetmanagement1.util.exceptions.RequestNotFoundException;
+import com.tyss.assetmanagement1.util.exceptions.UserNotFoundException;
 import com.tyss.assetmanagement1.util.factory.Factory;
 
 public class ServiceImpl implements Service {
@@ -96,6 +97,16 @@ public class ServiceImpl implements Service {
 		return check;
 	}
 
+	@Override
+	public void removeAsset(Integer AssetID) throws AssetNotFoundException {
+		dao.removeAsset(AssetID);		
+	}
+
+	@Override
+	public void removeUser(Integer userID) throws UserNotFoundException {
+		dao.removeUser(userID);
+	}
+	
 	@Override
 	public boolean allot(Integer requestID)
 			throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException {

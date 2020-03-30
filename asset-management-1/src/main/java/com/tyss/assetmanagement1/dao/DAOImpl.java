@@ -10,6 +10,7 @@ import com.tyss.assetmanagement1.repository.Database;
 import com.tyss.assetmanagement1.util.exceptions.AssetNotFoundException;
 import com.tyss.assetmanagement1.util.exceptions.QuantityNotAvailableException;
 import com.tyss.assetmanagement1.util.exceptions.RequestNotFoundException;
+import com.tyss.assetmanagement1.util.exceptions.UserNotFoundException;
 
 public class DAOImpl implements DAO {
 
@@ -54,6 +55,61 @@ public class DAOImpl implements DAO {
 		return null;
 	}
 
+	
+	@Override
+	public void addUser(UserDetails userDetails) {
+		database.users().add(userDetails);
+	}
+
+	@Override
+	public void addAsset(Assets asset) {
+		database.assets().add(asset);
+	}
+	
+	@Override
+	public void updateAsset(Integer assetID, Integer quantity) throws AssetNotFoundException {
+		Assets asset = null;
+		for (Assets assets2 : database.assets()) {
+			if (assets2.getAssetID().equals(assetID))
+				asset = assets2;
+		}
+		if (asset == null)
+			throw new AssetNotFoundException();
+		asset.setAssetQuantity(asset.getAssetQuantity() + quantity);		
+	}
+
+	@Override
+	public void addRequest(RequestForm requestForm) {
+		database.requests().add(requestForm);
+	}
+
+	@Override
+	public void removeAsset(Integer assetID) throws AssetNotFoundException {
+		int i;
+		for(i = 0; i < database.users().size(); i++) {
+			if (assetID.equals(database.assets().get(i).getAssetID())) {
+				database.assets().remove(i);
+				break;
+			}
+		}	
+		if (i == database.assets().size())
+			throw new AssetNotFoundException();
+	}
+	
+	@Override
+	public void removeUser(Integer userID) throws UserNotFoundException {
+		int i;
+		for(i = 0; i < database.users().size(); i++) {
+			if (userID.equals(database.users().get(i).getUserID())) {
+				database.users().remove(i);
+				break;
+			}
+		}	
+		if (i == database.users().size())
+			throw new UserNotFoundException();
+		
+	}
+	
 	@Override
 	public Integer checkEmployee(Integer empID) {
 		for (UserDetails userDetails : users()) {
@@ -66,7 +122,7 @@ public class DAOImpl implements DAO {
 		}
 		return 1;
 	}
-
+	
 	@Override
 	public boolean checkAsset(Integer assetID) {
 		for (Assets assets2 : assets()) {
@@ -75,7 +131,7 @@ public class DAOImpl implements DAO {
 		}
 		return false;
 	}	
-
+	
 	@Override
 	public boolean allot(Integer requestID) throws QuantityNotAvailableException, RequestNotFoundException, AssetNotFoundException {
 		RequestForm requestForm = null;
@@ -109,34 +165,7 @@ public class DAOImpl implements DAO {
 		}
 		return false;
 	}
-	
-	@Override
-	public void addUser(UserDetails userDetails) {
-		database.users().add(userDetails);
-	}
 
-	@Override
-	public void addAsset(Assets asset) {
-		database.assets().add(asset);
-
-	}
-	
-	@Override
-	public void updateAsset(Integer assetID, Integer quantity) throws AssetNotFoundException {
-		Assets asset = null;
-		for (Assets assets2 : database.assets()) {
-			if (assets2.getAssetID().equals(assetID))
-				asset = assets2;
-		}
-		if (asset == null)
-			throw new AssetNotFoundException();
-		asset.setAssetQuantity(asset.getAssetQuantity() + quantity);		
-	}
-
-	@Override
-	public void addRequest(RequestForm requestForm) {
-		database.requests().add(requestForm);
-	}
 
 	@Override
 	public void changePassword(Integer userID, String password) {

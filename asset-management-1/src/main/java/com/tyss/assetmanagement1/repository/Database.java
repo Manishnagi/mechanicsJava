@@ -16,9 +16,6 @@ public class Database {
 		USERS = Dummy.dummyUsers();
 		ASSETS = Dummy.dummyAssets();
 		REQUESTS = Dummy.dummyRequests();
-//		for (UserDetails user : USERS) {
-//			System.out.println(user + "--> " + user.getPassword());
-//		}
 	}
 	
 	public List<UserDetails> users() {

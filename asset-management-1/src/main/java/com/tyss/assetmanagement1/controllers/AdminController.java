@@ -14,6 +14,7 @@ import com.tyss.assetmanagement1.util.exceptions.InvalidPasswordException;
 import com.tyss.assetmanagement1.util.exceptions.InvalidUsernameException;
 import com.tyss.assetmanagement1.util.exceptions.QuantityNotAvailableException;
 import com.tyss.assetmanagement1.util.exceptions.RequestNotFoundException;
+import com.tyss.assetmanagement1.util.exceptions.UserNotFoundException;
 
 /**
  * Controller with dedicated functionalities for an ADMIN 
@@ -38,9 +39,10 @@ public class AdminController {
 				logger.info(
 						"\nEnter\n1 to display all assets\n2 to view pending requests\n3 to view an asset's details completely"
 								+ "\n4 to create a new user\n5 to add/update an asset\n6 to view approved requests"
-								+ "\n7 to change password\nL to LOGOUT");
+								+ "\n7 to change password\n8 to remove an user"
+								+ "\n9 to remove an asset\nL to LOGOUT");
 
-				switch (scanner.nextLine()) {
+				switch (scanner.nextLine().trim()) {
 				case "1":
 					logger.info("\nID");
 					for (Assets assets2 : service.getAssets()) {
@@ -136,6 +138,26 @@ public class AdminController {
 						} catch (InvalidPasswordException e) {
 							logger.info("\n" + e.getMessage() );
 						}
+					}
+					break;
+				case "8":
+					logger.info("Enter the user's ID :");
+					Integer userID = Integer.parseInt(scanner.nextLine());
+					try {
+						service.removeUser(userID);
+						logger.info("Deleted Succesfully");
+					} catch (UserNotFoundException e) {
+						e.printStackTrace();
+					}
+					break;
+				case "9":
+					logger.info("Enter the asset's ID :");
+					Integer assetsID = Integer.parseInt(scanner.nextLine());
+					try {
+						service.removeAsset(assetsID);
+						logger.info("Deleted Succesfully");
+					} catch (AssetNotFoundException e) {
+						e.printStackTrace();
 					}
 					break;
 				case "L":
