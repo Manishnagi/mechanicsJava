@@ -51,11 +51,17 @@ public class MainController {
 					case "Admin":
 						AdminController.controller(user, service, scanner);
 						break;
+					case "Admin":
+						AdminController.controller(user, service, scanner);
+						break;
 					case "Manager":
 						ManagerController.controller(user, service, scanner);
 						break;
 					case "Employee":
 						logger.info("\nLogin not available for employee.......");
+						break;
+					case "Admin":
+						AdminController.controller(user, service, scanner);
 						break;
 					default:
 						logger.info("\nThis will be avoided always...");
