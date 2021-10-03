@@ -38,6 +38,20 @@ class TestMethods {
 			}
 		}
 	}
+	
+	@Test
+	void testGetAsset() {
+		daoImpl = new DAOImpl();
+		assetTest = daoImpl.getAsset(1);
+		assetTest1.add(assetTest12);
+		if (assetTest1 == 123) {
+			fail("Test case failed");
+		} else {
+			if (assetTest1.size() == 1) {
+				assertEquals(assetTest1.get(0), assetTest);
+			}
+		}
+	}
 
 	@Test
 	void testCheckAsset() {
@@ -70,6 +84,20 @@ class TestMethods {
 			fail("Test case failed");
 		} else {
 			assertEquals(requestFormTest1.get(0), requestform);
+		}
+	}
+	
+	@Test
+	void testGetAssetMauj() {
+		daoImpl = new DAOImpl();
+		assetTest = daoImpl.getAsset(1);
+		assetTest1.add(assetTest);
+		if (assetTest1 == null) {
+			fail("Test case failed on line"+assesTest);
+		} else {
+			if (assetTest1.size() == 1) {
+				assertEquals(assetTest1.get(0), assetTest);
+			}
 		}
 	}
 
