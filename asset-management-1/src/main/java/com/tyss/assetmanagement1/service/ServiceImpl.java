@@ -52,6 +52,21 @@ public class ServiceImpl implements Service {
 		}
 		return null;
 	}
+	
+	
+	@Override
+	public UserDetails getUser(String userName, String password) throws InvalidPasswordException {
+		for (UserDetails user : dao.users()) {
+			if (user.getUserName().equals(userName)) {
+				if (PasswordEncoder.checkPassword(password, user.getPassword())) {
+					return user;
+				} else {
+					throw new InvalidPasswordException("Keep it real man");
+				}
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public Assets getAsset(Integer assetID) {
@@ -72,6 +87,12 @@ public class ServiceImpl implements Service {
 	}
 
 	@Override
+	public void addAsset(Assets asset) {
+		dao.addAsset(asset);
+	}@Override
+	public void addAsset(Assets asset) {
+		dao.addAsset(asset);
+	}@Override
 	public void addAsset(Assets asset) {
 		dao.addAsset(asset);
 	}
