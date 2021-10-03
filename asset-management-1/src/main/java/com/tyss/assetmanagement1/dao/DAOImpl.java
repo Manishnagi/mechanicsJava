@@ -44,6 +44,11 @@ public class DAOImpl implements DAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<RequestForm> requests() {
+		return new LinkedList<>(database.requests());
+	}
 
 	@Override
 	public RequestForm getRequest(Integer requestID) {
@@ -56,9 +61,11 @@ public class DAOImpl implements DAO {
 	}
 
 	
+	
+	
 	@Override
-	public void addUser(UserDetails userDetails) {
-		database.users().add(userDetails);
+	public List<RequestForm> requests() {
+		return new LinkedList<>(database.requests());
 	}
 
 	@Override
@@ -81,6 +88,21 @@ public class DAOImpl implements DAO {
 	@Override
 	public void addRequest(RequestForm requestForm) {
 		database.requests().add(requestForm);
+	}
+	
+	
+	@Override
+	public void removeUser(Integer userID) throws UserNotFoundException {
+		int i;
+		for(i = 0; i < database.users().size(); i++) {
+			if (userID.equals(database.users().get(i).getUserID())) {
+				database.users().remove(i);
+				break;
+			}
+		}	
+		if (i == database.users().size())
+			throw new UserNotFoundException();
+		
 	}
 
 	@Override
