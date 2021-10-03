@@ -26,6 +26,10 @@ public class Database {
 		return ASSETS;
 	}
 	
+	public List<Assets> assets() {
+		return ASSETS;
+	}
+	
 	public List<RequestForm> requests() {
 		return REQUESTS;
 	}
