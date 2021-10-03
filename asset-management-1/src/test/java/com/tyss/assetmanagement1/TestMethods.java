@@ -63,6 +63,27 @@ class TestMethods {
 			assertEquals(true, check);
 		}
 	}
+	
+	@Test
+	void testCheckLiabilty() {
+		daoImpl = new DAOImpl();
+		boolean check = daoImpl.checkAsset(1);
+		if (check == false) {
+			fail("Test case failed");
+		} else {
+			assertEquals(true, check);
+		}
+	}
+	@Test
+	void testCheckMantaince() {
+		daoImpl = new DAOImpl();
+		boolean check = daoImpl.checkAsset(1);
+		if (check == false) {
+			fail("Test case failed");
+		} else {
+			assertEquals(true, check);
+		}
+	}
 
 	@Test
 	void testCheckEmpolyee() {
