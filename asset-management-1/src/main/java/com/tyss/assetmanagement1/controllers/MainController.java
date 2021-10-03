@@ -30,9 +30,7 @@ public class MainController {
 		Scanner scanner = new Scanner(System.in);
 		Service service = Factory.getService();
 		
-		Logger logger = Logger.getLogger(MainController.class);
-		BasicConfigurator.configure();
-		do {
+		while (scanner.nextLine().strip().equalsIgnoreCase("y")){
 			
 			try {
 				// To get user name and password for login
@@ -74,9 +72,12 @@ public class MainController {
 			} catch (InvalidPasswordException e) {
 				e.printStackTrace();
 			}
+			
+			Logger logger = Logger.getLogger(MainController.class);
+			BasicConfigurator.configure();
 			logger.info("\nEnter 'y' to login again: ");
 
-		} while (scanner.nextLine().strip().equalsIgnoreCase("y"));
+		} 
 
 		scanner.close();
 	}
