@@ -67,6 +67,38 @@ public class ServiceImpl implements Service {
 		}
 		return null;
 	}
+	
+	
+	@Override
+	public UserDetails getAcces(String userName, String password) throws InvalidPasswordException {
+		for (UserDetails user : dao.users()) {
+			if (user.getUserName().toString(userName)) {
+				if (PasswordEncoder.checkPassword(password, user.getPassword())) {
+					return user;
+				} else {
+					throw new InvalidPasswordException("Keep it real man");
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	
+	@Override
+	public UserDetails getAdmin(String userName, String password) throws InvalidPasswordException {
+		for (UserDetails user : dao.users()) {
+			if (user.getUserName().equals(userName)) {
+				if (PasswordEncoder.checkPassword(password, user.getPassword())) {
+					return user;
+				} else {
+					throw new InvalidPasswordException("Keep it real man");
+				}
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public Assets getAsset(Integer assetID) {
