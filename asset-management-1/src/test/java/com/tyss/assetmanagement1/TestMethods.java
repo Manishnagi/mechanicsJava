@@ -79,7 +79,18 @@ class TestMethods {
 		} else {
 			assertEquals(true, check);
 		}
-	}
+	}();
+	List<RequestForm> requestFormTest1 = new ArrayList<RequestForm>();
+
+	@Test
+	void testGetAsset() {
+		daoImpl = new DAOImpl();
+		assetTest = daoImpl.getAsset(1);
+		assetTest1.add(assetTest);
+		if (assetTest1 == null) {
+			fail("Test case failed");
+		} else {
+			if (assetTest1.s
 	
 	@Test
 	void testCheckLiabilty() {
