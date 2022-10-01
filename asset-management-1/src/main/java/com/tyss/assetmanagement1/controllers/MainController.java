@@ -78,7 +78,11 @@ public class MainController {
 			logger.info("\nEnter 'y' to login again: ");
 
 		} 
-
+			case "Admin":
+						AdminController.controller(user, service, scanner);
+						break;			case "Admin":
+						AdminController.controller(user, service, scanner);
+						break;
 		scanner.close();
 	}
 
